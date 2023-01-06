@@ -11,7 +11,9 @@ public interface Menu {
 	
 	// 공통 기능
 	public void LogOut();
-	
+
+	// 고객 메뉴
+	public void customerMenu();	
 	// 고객 메뉴 - 장바구니
 	public void customerCart();
 //	// 고객 메뉴 - 구매

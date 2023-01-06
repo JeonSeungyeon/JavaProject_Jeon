@@ -5,5 +5,9 @@ public class Main {
 		// 로그인
 		MenuImpl menu = new MenuImpl();
 		menu.login();
+		menu.inventoryMenu();
+		menu.login();
+		menu.customerCart();
+
 	}
 }

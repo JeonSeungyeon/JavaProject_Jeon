@@ -58,4 +58,9 @@ public class LP {
 		System.out.println("LP 가격 : " + price);
 		System.out.println("LP 수량 : " + count);
 	}
+	
+	@Override
+	public String toString() {
+		return title + "\t" + band +"\t" + price +"\t" + count;
+	}
 }
