@@ -7,8 +7,10 @@ import model.LP;
 public class AdminImpl implements Admin {
 	
 	Scanner scan = new Scanner(System.in);
-	LP lp = new LP();
+	LP adminLP = LP.getInstance();
 	
+	// =================================================================== 
+	// 멤버변수
 	private int LPKey;	// LP 코드를 입력 받기 위한 변수
 	
 	private String title;
@@ -38,7 +40,7 @@ public class AdminImpl implements Admin {
 	public void productList() {
 		System.out.println("================= 상품 목록 ==================");
 		System.out.println(" 번호	제목	밴드	가격	수량");
-		lp.entryLPMap();
+		adminLP.entryMap(1);
 		System.out.println("==========================================");
 		// 재고관리 메뉴로 넘어가는 거 구현해야함
 	}
@@ -67,7 +69,7 @@ public class AdminImpl implements Admin {
 //			lp.addLPMap(randomNumber, lp);
 //		}
 		
-		lp.addLPMap(randomNumber, newLP);
+		adminLP.addMap(randomNumber, newLP, 1);
 	}
 
 	@Override
@@ -77,7 +79,7 @@ public class AdminImpl implements Admin {
 		if(LPKey == 0) {
 			// 재고관리 메뉴로 넘어가는 거 구현해야함
 		} else {
-			if(lp.containsKeyLPMap(LPKey)) {
+			if(adminLP.containsKeyMap(LPKey, 1)) {
 				System.out.println("================= LP 수정 ==================");
 				System.out.print("LP 제목: ");
 				title = scan.next();
@@ -88,8 +90,8 @@ public class AdminImpl implements Admin {
 				System.out.print("LP 수량 : ");
 				count = scan.nextInt();
 				System.out.println("==========================================");
-				lp =  new LP(title, band, price, count);
-				lp.addLPMap((int) (LPKey), lp);
+				LP update =  new LP(title, band, price, count);
+				adminLP.addMap((int) (LPKey), update, 1);
 			} else {
 				System.out.println("입력하신 LP가 없습니다.");
 			}
@@ -104,11 +106,11 @@ public class AdminImpl implements Admin {
 		if(LPKey == 0) {
 			// 재고관리 메뉴로 넘어가는 거 구현해야함
 		} else {
-			if(lp.containsKeyLPMap(LPKey)) {
+			if(adminLP.containsKeyMap(LPKey, 1)) {
 				System.out.println("================= LP 삭제 ==================");
 				System.out.println("	   " + LPKey +"번 LP가 삭제되었습니다.");
 				System.out.println("==========================================");
-				lp.removeLPMap(LPKey);
+				adminLP.removeMap(LPKey, 1);
 			} else {
 				System.out.println("입력하신 LP가 없습니다.");
 			}

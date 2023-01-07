@@ -1,20 +1,17 @@
 package controller;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 import model.LP;
 
 public class CustomerImpl implements Customer {
 	
 	AdminImpl admin = AdminImpl.getInstance();
-	LP lp = new LP();
+	LP customerLp = LP.getInstance();
 	
 	Scanner scan = new Scanner(System.in);
 	
-	// 장바구니 목록에 쓰일 Map
-	HashMap<Integer, LP> CartMap = new HashMap<Integer, LP>();
-
+	// =================================================================== 
+	// 멤버변수
 	private int LPKey;
 	int count;
 	
@@ -43,11 +40,7 @@ public class CustomerImpl implements Customer {
 	public void cartList() {
 		System.out.println("================ 장바구니 목록 ================");
 		System.out.println(" 번호	제목	밴드	가격	수량");
-		for(Map.Entry<Integer, LP> entry : CartMap.entrySet()) {
-			int key = entry.getKey();
-			LP value = entry.getValue();
-			System.out.println(key + "\t" + value);	
-		}
+		customerLp.entryMap(2);
 		System.out.println("==========================================");
 	}
 
@@ -63,13 +56,14 @@ public class CustomerImpl implements Customer {
 				break;
 				// 장바구니 메뉴로 넘어가는 거 구현해야함
 			} else {
-				if(lp.containsKeyLPMap(LPKey)) {
+				if(customerLp.containsKeyMap(LPKey, 1)) {
 					System.out.print("수량을 입력하세요 : ");
 					count = scan.nextInt();
 					System.out.println("==========================================");
 					System.out.println("	             장바구니에 담겼습니다.");
 					System.out.println("==========================================");
-					CartMap.put(LPKey, lp);
+					LP newLP =  new LP(customerLp.getTitle(), customerLp.getBand(), customerLp.getPrice(), count);
+					customerLp.addMap(LPKey, newLP, 2);
 					// CartMap에 추가 해야 하는데 번호 제목 밴드는 LPMap과 같지만 가격과 수량은 다르게 해야함
 					// Cart 클래스를 따로 만들어야 하나?
 				} else {
@@ -86,11 +80,11 @@ public class CustomerImpl implements Customer {
 		if(LPKey == 0) {
 			
 		} else {
-			if(lp.containsKeyLPMap(LPKey)) {
+			if(customerLp.containsKeyMap(LPKey, 1)) {
 				System.out.println("================= LP 삭제 ==================");
 				System.out.println("	           목록에서 삭제 되었습니다.");
 				System.out.println("==========================================");
-				CartMap.remove(LPKey);
+				customerLp.removeMap(LPKey, 2);
 			} else {
 				System.out.println("입력하신 LP가 없습니다.");
 			}
@@ -104,11 +98,11 @@ public class CustomerImpl implements Customer {
 		if(LPKey == 0) {
 			// 장바구니 메뉴로 넘어가는 거 구현해야함
 		} else {
-			if(lp.containsKeyLPMap(LPKey)) {
+			if(customerLp.containsKeyMap(LPKey, 1)) {
 				System.out.println("================= LP 삭제 ==================");
 				System.out.println("	             구매 요청 되었습니다.");
 				System.out.println("==========================================");
-				CartMap.remove(LPKey);
+				customerLp.removeMap(LPKey, 2);
 			} else {
 				System.out.println("입력하신 LP가 없습니다.");
 			}

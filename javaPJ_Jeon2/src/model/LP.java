@@ -6,6 +6,7 @@ import java.util.Map;
 // DTO(Data Transfer Object)
 public class LP {
 
+	// =================================================================== 
 	// 멤버변수
 	private String title;
 	private String band;
@@ -13,12 +14,28 @@ public class LP {
 	private int count;
 	
 	private HashMap<Integer, LP> LPMap;
+	private HashMap<Integer, LP> cartMap;
+	
+	// =================================================================== 
+	// 싱글톤
+	
+	private LP() {
+		LPMap = new HashMap<Integer, LP>();
+		cartMap = new HashMap<Integer, LP>();
+	}
+	
+	private static LP lp = new LP();
+	
+	public static LP getInstance() {
+		if(lp == null) {
+			return lp = new LP();
+		}
+		return lp;
+		
+	}
 	
 	// =================================================================== 
 	// 생성자
-	public LP() {
-		LPMap = new HashMap<Integer, LP>();
-	}
 
 	public LP(String title, String band, int price, int count) {
 		this.title = title;
@@ -63,38 +80,63 @@ public class LP {
 	}
 	
 	// =================================================================== 
-	// LPMap 메서드
+	// Map 메서드
 	
-	// LPMap에 값 추가하는 메서드
-	public void addLPMap(int key, LP value) {
-		LPMap.put(key, value);
+	// Map에 값 추가하는 메서드
+	public void addMap(int key, LP value, int switchMap) {	// switchMap을 상수로 바꾸면 좋을 거 같음
+		switch(switchMap) {
+			case 1 : LPMap.put(key, value);		break;
+			case 2 : cartMap.put(key, value);	break;
+		}
 	}
 	
-	// LPMap에 값 가져오는 메서드
-	public LP getLPMap(int key) {
-        return LPMap.get(key);
+	// Map에 값 가져오는 메서드
+	public LP getMap(int key, int switchMap) {
+		switch(switchMap) {
+			case 1 : return LPMap.get(key);
+			case 2 : return cartMap.get(key);
+		}
+			return null;
     }
 	
-	// LPMap에 값이 존재하는지 확인하는 메서드
-	public boolean containsKeyLPMap(int key) {
-	    return LPMap.containsKey(key);
+	// Map에 값이 존재하는지 확인하는 메서드
+	public boolean containsKeyMap(int key, int switchMap) {
+		switch(switchMap) {
+			case 1 : return LPMap.containsKey(key);
+			case 2 : return cartMap.containsKey(key);
+		}
+		return false;
+	    
 	}
 	
-	// LPMap 키에 해당하는 값 삭제하는 메서드
-    public void removeLPMap(int key) {
-        LPMap.remove(key);
+	// Map 키에 해당하는 값 삭제하는 메서드
+    public void removeMap(int key, int switchMap) {
+		switch(switchMap) {
+			case 1 : LPMap.remove(key);		break;
+			case 2 : cartMap.remove(key);	break;
+		}
+        
     }
 
-    // entry로 LPMap을 출력하는 메서드
-    public void entryLPMap() {
+    // entry로 Map을 출력하는 메서드
+    public void entryMap(int switchMap) {
+    	if(switchMap == 1){
     		for(Map.Entry<Integer, LP> entry : LPMap.entrySet()) {
     			int key = entry.getKey();
     			LP value = entry.getValue();
     			System.out.println(key + "\t" + value);	
     		}
+    	} else if(switchMap == 2) {
+    		for(Map.Entry<Integer, LP> entry : cartMap.entrySet()) {
+    			int key = entry.getKey();
+    			LP value = entry.getValue();
+    			System.out.println(key + "\t" + value);	
+    		}
+    	}
     }
 
     // =================================================================== 
+    
 	@Override
 	public String toString() {
 		return title + "\t" + band +"\t" + price +"\t" + count;

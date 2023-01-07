@@ -17,6 +17,9 @@ public class MenuImpl implements Menu {
 	
 	Scanner scan = new Scanner(System.in);
 	
+	// =================================================================== 
+	// 멤버변수
+	
 	private int menu;	// 메뉴선택
 	private String id;	// 아이디 입력
 	private String pw;	// 비밀번호 입력
