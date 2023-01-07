@@ -3,26 +3,27 @@ package controller;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-
 import model.LP;
-
-//import java.util.HashMap;
 
 public class CustomerImpl implements Customer {
 	
 	AdminImpl admin = AdminImpl.getInstance();
+	LP lp = new LP();
+	
 	Scanner scan = new Scanner(System.in);
 	
-	private int LPKey;
-	int count;
-
-	// 장바구니 목록에 쓰일 배열
+	// 장바구니 목록에 쓰일 Map
 	HashMap<Integer, LP> CartMap = new HashMap<Integer, LP>();
 
+	private int LPKey;
+	int count;
+	
 	// 고객 맵
 //	HashMap<String, String> customerMap = new HashMap<String, String>();
 	
+	// =================================================================== 
 	// 싱글톤
+	
 	private CustomerImpl() {}
 	
 	private static CustomerImpl customer = new CustomerImpl();
@@ -34,7 +35,10 @@ public class CustomerImpl implements Customer {
 		return customer;
 	}
 	
+	// =================================================================== 
 	// 인터페이스 구현
+	// 고객 메뉴 = 1.장바구니
+	
 	@Override
 	public void cartList() {
 		System.out.println("================ 장바구니 목록 ================");
@@ -59,16 +63,17 @@ public class CustomerImpl implements Customer {
 				break;
 				// 장바구니 메뉴로 넘어가는 거 구현해야함
 			} else {
-				System.out.print("수량을 입력하세요 : ");
-				count = scan.nextInt();
-				if(admin.LPMap.containsKey(LPKey)) {
+				if(lp.containsKeyLPMap(LPKey)) {
+					System.out.print("수량을 입력하세요 : ");
+					count = scan.nextInt();
 					System.out.println("==========================================");
 					System.out.println("	             장바구니에 담겼습니다.");
 					System.out.println("==========================================");
+					CartMap.put(LPKey, lp);
 					// CartMap에 추가 해야 하는데 번호 제목 밴드는 LPMap과 같지만 가격과 수량은 다르게 해야함
-					// HashMap을 index번 까지만 복사하는 방법이 있을까?
+					// Cart 클래스를 따로 만들어야 하나?
 				} else {
-					System.out.println("입력하신 LP이 없습니다.");
+					System.out.println("입력하신 LP가 없습니다.");
 				}
 			}
 		} while(true);
@@ -76,15 +81,42 @@ public class CustomerImpl implements Customer {
 
 	@Override
 	public void cartRemove() {
-		// TODO Auto-generated method stub
-		
+		System.out.print("삭제하려는 LP의 코드를 입력하세요. [이전:0] : ");
+		LPKey = scan.nextInt();
+		if(LPKey == 0) {
+			
+		} else {
+			if(lp.containsKeyLPMap(LPKey)) {
+				System.out.println("================= LP 삭제 ==================");
+				System.out.println("	           목록에서 삭제 되었습니다.");
+				System.out.println("==========================================");
+				CartMap.remove(LPKey);
+			} else {
+				System.out.println("입력하신 LP가 없습니다.");
+			}
+		}
 	}
 
 	@Override
 	public void cartBuy() {
-		// TODO Auto-generated method stub
-		
+		System.out.print("구매할 LP의 코드를 입력하세요. [이전:0] : ");
+		LPKey = scan.nextInt();
+		if(LPKey == 0) {
+			// 장바구니 메뉴로 넘어가는 거 구현해야함
+		} else {
+			if(lp.containsKeyLPMap(LPKey)) {
+				System.out.println("================= LP 삭제 ==================");
+				System.out.println("	             구매 요청 되었습니다.");
+				System.out.println("==========================================");
+				CartMap.remove(LPKey);
+			} else {
+				System.out.println("입력하신 LP가 없습니다.");
+			}
+		}
 	}
+	
+	// =================================================================== 
+	// 고객메뉴 - 2.구매
 
 	@Override
 	public void nowBuy() {
@@ -92,6 +124,8 @@ public class CustomerImpl implements Customer {
 		
 	}
 
+	// =================================================================== 
+	// 고객메뉴 - 3.환불
 	@Override
 	public void refund() {
 		// TODO Auto-generated method stub

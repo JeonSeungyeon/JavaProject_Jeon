@@ -1,5 +1,8 @@
 package model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 // DTO(Data Transfer Object)
 public class LP {
 
@@ -9,8 +12,13 @@ public class LP {
 	private int price;
 	private int count;
 	
+	private HashMap<Integer, LP> LPMap;
+	
+	// =================================================================== 
 	// 생성자
-	public LP() {}
+	public LP() {
+		LPMap = new HashMap<Integer, LP>();
+	}
 
 	public LP(String title, String band, int price, int count) {
 		this.title = title;
@@ -18,8 +26,10 @@ public class LP {
 		this.price = price;
 		this.count = count;
 	}
-
-	// 멤버메서드(Getter, Setter, 출력정보)
+	
+	// =================================================================== 
+	// 멤버메서드(Getter, Setter)
+	
 	public String getTitle() {
 		return title;
 	}
@@ -52,13 +62,39 @@ public class LP {
 		this.count = count;
 	}
 	
-	public void showLPInfo() {
-		System.out.println("LP 제목 : " + title);
-		System.out.println("밴드 이름 : " + band);
-		System.out.println("LP 가격 : " + price);
-		System.out.println("LP 수량 : " + count);
+	// =================================================================== 
+	// LPMap 메서드
+	
+	// LPMap에 값 추가하는 메서드
+	public void addLPMap(int key, LP value) {
+		LPMap.put(key, value);
 	}
 	
+	// LPMap에 값 가져오는 메서드
+	public LP getLPMap(int key) {
+        return LPMap.get(key);
+    }
+	
+	// LPMap에 값이 존재하는지 확인하는 메서드
+	public boolean containsKeyLPMap(int key) {
+	    return LPMap.containsKey(key);
+	}
+	
+	// LPMap 키에 해당하는 값 삭제하는 메서드
+    public void removeLPMap(int key) {
+        LPMap.remove(key);
+    }
+
+    // entry로 LPMap을 출력하는 메서드
+    public void entryLPMap() {
+    		for(Map.Entry<Integer, LP> entry : LPMap.entrySet()) {
+    			int key = entry.getKey();
+    			LP value = entry.getValue();
+    			System.out.println(key + "\t" + value);	
+    		}
+    }
+
+    // =================================================================== 
 	@Override
 	public String toString() {
 		return title + "\t" + band +"\t" + price +"\t" + count;
