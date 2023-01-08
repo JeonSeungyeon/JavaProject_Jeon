@@ -61,23 +61,17 @@ public class AdminImpl implements Admin {
 		System.out.println("==========================================");
 		LP newLP =  new LP(title, band, price, count);
 		int randomNumber = (int) (Math.random() * 1000 + 1000);
-		
-		// randomNumber이 기존 코드와 같을 경우
-//		if(lp.containsKeyLPMap(randomNumber)) {
-//			randomNumber = (int) (Math.random() * 1000 + 1000);
-//		} else {
-//			lp.addLPMap(randomNumber, lp);
-//		}
-		
-		adminLP.addMap(randomNumber, newLP, 1);
+		// randomNumber이 기존 코드와 같을 경우 처리하기		
+		adminLP.addMap(randomNumber, newLP);
 	}
 
 	@Override
 	public void productUpdate() {
-		System.out.print("수정하려는 책의 코드를 입력하세요. [이전:0] : ");
+		productList();
+		System.out.print("수정하려는 LP의 코드를 입력하세요. [이전:0] : ");
 		LPKey = scan.nextInt();
 		if(LPKey == 0) {
-			// 재고관리 메뉴로 넘어가는 거 구현해야함
+
 		} else {
 			if(adminLP.containsKeyMap(LPKey, 1)) {
 				System.out.println("================= LP 수정 ==================");
@@ -91,7 +85,7 @@ public class AdminImpl implements Admin {
 				count = scan.nextInt();
 				System.out.println("==========================================");
 				LP update =  new LP(title, band, price, count);
-				adminLP.addMap((int) (LPKey), update, 1);
+				adminLP.addMap(LPKey, update);
 			} else {
 				System.out.println("입력하신 LP가 없습니다.");
 			}
@@ -101,10 +95,11 @@ public class AdminImpl implements Admin {
 
 	@Override
 	public void productRemove() {
+		productList();
 		System.out.print("삭제하려는 LP의 코드를 입력하세요. [이전:0] : ");
 		LPKey = scan.nextInt();
 		if(LPKey == 0) {
-			// 재고관리 메뉴로 넘어가는 거 구현해야함
+			
 		} else {
 			if(adminLP.containsKeyMap(LPKey, 1)) {
 				System.out.println("================= LP 삭제 ==================");
@@ -122,19 +117,46 @@ public class AdminImpl implements Admin {
 	
 	@Override
 	public void orderSelect() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("================ 구매 요청 목록 ================");
+		System.out.println(" 번호	제목	밴드	가격	수량");
+		System.out.println("==========================================");
+		adminLP.entryMap(3);
 	}
 
 	@Override
 	public void orderConfirm() {
-		// TODO Auto-generated method stub
-		
+		orderSelect();
+		System.out.print("구매 승인할 코드를 입력하세요. [이전:0] : ");
+		LPKey = scan.nextInt();
+		if(LPKey == 0) {
+			
+		} else {
+			if(adminLP.containsKeyMap(LPKey, 3)) {
+				System.out.println("==========================================");
+				System.out.println("	             결제 승인 되었습니다.");
+				System.out.println("==========================================");
+				adminLP.addPurchaseMap(LPKey);
+				adminLP.removeMap(LPKey, 3);
+				// 결산 값 증가하는 것 추가해야함
+			} else {
+				System.out.println("입력하신 LP가 없습니다.");
+			}
+		}
 	}
 
 	@Override
 	public void orderCancel() {
-		// TODO Auto-generated method stub
+		System.out.println("================ 환불 요청 목록 ================");
+		System.out.println(" 번호	제목	밴드	가격	수량");
+		System.out.println("==========================================");
+		adminLP.entryMap(5);
+		System.out.print("구매 승인할 코드를 입력하세요. [이전:0] : ");
+		LPKey = scan.nextInt();
+		adminLP.removeMap(LPKey, 5);
+		System.out.println("==========================================");
+		System.out.println("	             환불 처리 되었습니다.");
+		System.out.println("==========================================");
+		// 결산 값 감소하는 것 추가해야함
 		
 	}
 

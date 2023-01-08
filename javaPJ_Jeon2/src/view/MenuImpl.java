@@ -41,7 +41,6 @@ public class MenuImpl implements Menu {
 			case 2 : adminLogin();		break;
 			case 3 : signUp();			break;
 			case 4 : exit();			break;
-//			default : System.out.println("메뉴에 있는 숫자만 입력해 주세요.");	// 예외처리 추가 
 		}
 	}
 	
@@ -104,15 +103,16 @@ public class MenuImpl implements Menu {
 		System.out.println("==========================================");
 		System.out.println("		  회원가입 완료");
 		System.out.println("==========================================");
-//		customer.addCustomerMap(id, pw);
 		login();
 	}
 
+	// =================================================================== 
+	// 종료
+	
 	@Override
 	public void exit() {
 		System.exit(0);
 	}
-	
 	
 	// =================================================================== 
 	// 고객 메뉴
@@ -126,10 +126,9 @@ public class MenuImpl implements Menu {
 			menu = scan.nextInt();
 			switch(menu) {
 				case 1 : customerCart();	break;
-	//			case 2 : customerBuy();		break;
-	//			case 3 : customerRefund();	break;
+				case 2 : customer.nowBuy();	break;
+				case 3 : customer.refund();	break;
 				case 4 : LogOut();			break;
-				//default : System.out.println("메뉴에 있는 숫자만 입력해 주세요.");	// 예외처리 추가
 			}		
 		}
 	}
@@ -166,7 +165,6 @@ public class MenuImpl implements Menu {
 				case 1 : inventoryMenu();	break;
 				case 2 : orderMenu();		break;
 				case 3 : LogOut();			break;
-	//			default : System.out.println("메뉴에 있는 숫자만 입력해 주세요.");	// 예외처리 추가 
 			}
 		}
 	}
@@ -184,7 +182,6 @@ public class MenuImpl implements Menu {
 				case 3 : admin.productUpdate();	break;
 				case 4 : admin.productRemove();	break;
 				case 5 : adminMenu();
-	//			default : System.out.println("메뉴에 있는 숫자만 입력해 주세요.");	// 예외처리 추가 
 			}
 		}
 	}
@@ -192,20 +189,25 @@ public class MenuImpl implements Menu {
 
 	@Override
 	public void orderMenu() {
+		while(true) {
 			System.out.println("───────────────── 주문관리  ─────────────────");
 			System.out.println("  1.주문목록   2.결제승인   3.결제취소    4.결산    5.이전");
-			System.out.println("==========================================");		
-				switch(menu) {
+			System.out.println("==========================================");	
+			menu = scan.nextInt();
+			switch(menu) {
 				case 1 : admin.orderSelect();	break;
 				case 2 : admin.orderConfirm();	break;
 				case 3 : admin.orderCancel();	break;
 				case 4 : admin.saleTotal();		break;
 				case 5 : adminMenu();
-		//		default : System.out.println("메뉴에 있는 숫자만 입력해 주세요.");	// 예외처리 추가 
+			}
 		}
 	}
 
 
+	// ===================================================================
+	// 로그아웃
+	
 	@Override
 	public void LogOut() {
 		login();
