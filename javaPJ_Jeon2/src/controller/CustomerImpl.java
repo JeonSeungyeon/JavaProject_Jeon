@@ -141,11 +141,21 @@ public class CustomerImpl implements Customer {
 		customerLp.entryMap(4);
 		System.out.println("==========================================");
 		System.out.print("환불 요청할 책의 코드를 입력하세요. [이전:0] : ");
-		System.out.println("==========================================");
-		System.out.println("	             환불 요청 되었습니다.");
-		System.out.println("==========================================");
-		customerLp.addRefundMap(LPKey);
-		customerLp.removeMap(LPKey, 3);
+		LPKey = scan.nextInt();
+		if(LPKey == 0) {
+			
+		} else {
+			if(customerLp.containsKeyMap(LPKey, 4)) {
+				System.out.println("==========================================");
+				System.out.println("	             환불 요청 되었습니다.");
+				System.out.println("==========================================");
+				customerLp.addRefundMap(LPKey);
+				customerLp.removeMap(LPKey, 3);
+			} else {
+				System.out.println("입력하신 LP가 없습니다.");
+			}
+			
+		}
 	}
 	
 }

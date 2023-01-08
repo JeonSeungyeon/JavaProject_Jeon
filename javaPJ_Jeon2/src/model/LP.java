@@ -104,6 +104,16 @@ public class LP {
 			return null;
     }
 	
+	public int totalIncrease(int LPKey) {
+		LP value = purchaseMap.get(LPKey);
+		return value.price;
+	}
+	
+	public int totalDecrease(int LPKey) {
+		LP value = refundMap.get(LPKey);
+		return value.price;
+	}
+	
 	// ====================================
 	// Map에 값이 존재하는지 확인하는 메서드
 	public boolean containsKeyMap(int key, int switchMap) {

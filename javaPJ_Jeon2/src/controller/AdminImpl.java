@@ -17,6 +17,7 @@ public class AdminImpl implements Admin {
 	private String band;
 	private int price;
 	private int count;
+	private int total;
 	
 	// =================================================================== 
 	// 싱글톤
@@ -137,7 +138,9 @@ public class AdminImpl implements Admin {
 				System.out.println("==========================================");
 				adminLP.addPurchaseMap(LPKey);
 				adminLP.removeMap(LPKey, 3);
-				// 결산 값 증가하는 것 추가해야함
+				// 결산 값 증가
+				int income = adminLP.totalIncrease(LPKey);
+				total += income;
 			} else {
 				System.out.println("입력하신 LP가 없습니다.");
 			}
@@ -152,18 +155,27 @@ public class AdminImpl implements Admin {
 		adminLP.entryMap(5);
 		System.out.print("구매 승인할 코드를 입력하세요. [이전:0] : ");
 		LPKey = scan.nextInt();
-		adminLP.removeMap(LPKey, 5);
-		System.out.println("==========================================");
-		System.out.println("	             환불 처리 되었습니다.");
-		System.out.println("==========================================");
-		// 결산 값 감소하는 것 추가해야함
+		if(LPKey == 0) {
+			
+		} else {
+			if(adminLP.containsKeyMap(LPKey, 5)) {
+				adminLP.removeMap(LPKey, 5);
+				System.out.println("==========================================");
+				System.out.println("	             환불 처리 되었습니다.");
+				System.out.println("==========================================");
+				// 결산 값 감소
+				int refundFee = adminLP.totalIncrease(LPKey);
+				total -= refundFee;
+			} else {
+				System.out.println("입력하신 LP가 없습니다.");
+			}
+		}
 		
 	}
 
 	@Override
 	public void saleTotal() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("결산 : " + total);
 	}
 	
 }
