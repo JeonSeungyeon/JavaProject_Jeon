@@ -13,10 +13,7 @@ public class CustomerImpl implements Customer {
 	// =================================================================== 
 	// 멤버변수
 	private int CDKey;
-	int cartCount;
-	
-	// 고객 맵
-//	HashMap<String, String> customerMap = new HashMap<String, String>();
+	int count;
 	
 	// =================================================================== 
 	// 싱글톤
@@ -56,11 +53,11 @@ public class CustomerImpl implements Customer {
 			} else {
 				if(customerCD.containsKeyMap(CDKey, CD_MAP)) {
 					System.out.print("수량을 입력하세요 : ");
-					cartCount = scan.nextInt();
+					count = scan.nextInt();
 					System.out.println("==========================================");
 					System.out.println("	             장바구니에 담겼습니다.");
 					System.out.println("==========================================");
-					customerCD.addCartMap(CDKey, cartCount);
+					customerCD.addCartMap(CDKey, count);
 				} else {
 					System.out.println("입력하신 CD가 없습니다.");
 				}
@@ -119,12 +116,12 @@ public class CustomerImpl implements Customer {
 
 		} else {
 			System.out.print("수량을 입력하세요 : ");
-			cartCount = scan.nextInt();
+			count = scan.nextInt();
 			if(customerCD.containsKeyMap(CDKey, CD_MAP)) {
 				System.out.println("==========================================");
 				System.out.println("	             구매 요청 되었습니다.");
 				System.out.println("==========================================");
-				customerCD.buyNow(CDKey, cartCount);
+				customerCD.buyNow(CDKey, count);
 			} else {
 				System.out.println("입력하신 CD가 없습니다.");
 			}

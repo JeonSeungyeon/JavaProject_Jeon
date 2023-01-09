@@ -11,7 +11,7 @@ public class AdminImpl implements Admin {
 	
 	// =================================================================== 
 	// 멤버변수
-	private int CDKey;	// CD 코드를 입력 받기 위한 변수
+	private int CDKey;
 	
 	private String title;
 	private String singer;

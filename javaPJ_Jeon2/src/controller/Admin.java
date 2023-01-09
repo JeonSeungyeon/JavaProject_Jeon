@@ -4,7 +4,9 @@ public interface Admin {
 	
 	// CD 클래스 switchMap
 	static final int CD_MAP = 1;
+	static final int CART_MAP = 2;
 	static final int ORDER_MAP = 3;	
+	static final int PURCHASE_MAP = 4;	
 	static final int REFUND_MAP = 5;
 	
 	public static final String ID = "admin";

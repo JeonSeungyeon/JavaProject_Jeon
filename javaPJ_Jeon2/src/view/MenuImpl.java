@@ -10,8 +10,6 @@ import controller.CustomerImpl;
 public class MenuImpl implements Menu {
 	
 	// 싱글톤 접근
-	// AdminImpl
-	// CustomerImpl
 	CustomerImpl customer = CustomerImpl.getInstance();
 	AdminImpl admin = AdminImpl.getInstance();
 	
@@ -34,7 +32,7 @@ public class MenuImpl implements Menu {
 		System.out.println("    1.고객        2.관리자        3.회원가입        4.종료        ");
 		System.out.println("==========================================");
 		System.out.print("메뉴번호를 입력하세요: ");
-		menu = scan.nextInt();	// 메뉴 번호 콘솔에서 입력
+		menu = scan.nextInt();
 
 		switch(menu) {
 			case 1 : customerLogin();	break;
