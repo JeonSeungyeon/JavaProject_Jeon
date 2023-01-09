@@ -11,7 +11,7 @@ public class AdminImpl implements Admin {
 	
 	// =================================================================== 
 	// 멤버변수
-	private int CDKey;
+	private int CDKey;	// CD코드를 입력할 변수
 	
 	private String title;
 	private String singer;
@@ -68,47 +68,50 @@ public class AdminImpl implements Admin {
 
 	@Override
 	public void productUpdate() {
-		productList();
-		System.out.print("수정하려는 CD의 코드를 입력하세요. [이전:0] : ");
-		CDKey = scan.nextInt();
-		if(CDKey == 0) {
-
-		} else {
-			if(adminCD.containsKeyMap(CDKey, CD_MAP)) {
-				System.out.println("================= CD 수정 ==================");
-				System.out.print("CD 제목: ");
-				title = scan.next();
-				System.out.print("가수 이름 : ");
-				singer = scan.next();
-				System.out.print("CD 가격 : ");
-				price = scan.nextInt();
-				System.out.print("CD 수량 : ");
-				count = scan.nextInt();
-				System.out.println("==========================================");
-				CD update =  new CD(title, singer, price, count);
-				adminCD.addMap(CDKey, update);
+		while(true) {
+			productList();
+			System.out.print("수정하려는 CD의 코드를 입력하세요. [이전:0] : ");
+			CDKey = scan.nextInt();
+			if(CDKey == 0) {
+				break;
 			} else {
-				System.out.println("입력하신 CD가 없습니다.");
+				if(adminCD.containsKeyMap(CDKey, CD_MAP)) {
+					System.out.println("================= CD 수정 ==================");
+					System.out.print("CD 제목: ");
+					title = scan.next();
+					System.out.print("가수 이름 : ");
+					singer = scan.next();
+					System.out.print("CD 가격 : ");
+					price = scan.nextInt();
+					System.out.print("CD 수량 : ");
+					count = scan.nextInt();
+					System.out.println("==========================================");
+					CD update =  new CD(title, singer, price, count);
+					adminCD.addMap(CDKey, update);
+				} else {
+					System.out.println("입력하신 CD가 없습니다.");
+				}
 			}
 		}
-		
 	}
 
 	@Override
 	public void productRemove() {
-		productList();
-		System.out.print("삭제하려는 CD의 코드를 입력하세요. [이전:0] : ");
-		CDKey = scan.nextInt();
-		if(CDKey == 0) {
-			
-		} else {
-			if(adminCD.containsKeyMap(CDKey, CD_MAP)) {
-				System.out.println("================= CD 삭제 ==================");
-				System.out.println("	   " + CDKey +"번 CD가 삭제되었습니다.");
-				System.out.println("==========================================");
-				adminCD.removeMap(CDKey, CD_MAP);
+		while(true) {
+			productList();
+			System.out.print("삭제하려는 CD의 코드를 입력하세요. [이전:0] : ");
+			CDKey = scan.nextInt();
+			if(CDKey == 0) {
+				break;
 			} else {
-				System.out.println("입력하신 CD가 없습니다.");
+				if(adminCD.containsKeyMap(CDKey, CD_MAP)) {
+					System.out.println("================= CD 삭제 ==================");
+					System.out.println("	   " + CDKey +"번 CD가 삭제되었습니다.");
+					System.out.println("==========================================");
+					adminCD.removeMap(CDKey, CD_MAP);
+				} else {
+					System.out.println("입력하신 CD가 없습니다.");
+				}
 			}
 		}
 	}
@@ -129,25 +132,27 @@ public class AdminImpl implements Admin {
 
 	@Override
 	public void orderConfirm() {
-		orderSelect();
-		System.out.print("구매 승인할 코드를 입력하세요. [이전:0] : ");
-		CDKey = scan.nextInt();
-		if(CDKey == 0) {
-			
-		} else {
-			if(adminCD.containsKeyMap(CDKey, ORDER_MAP)) {
-				System.out.println("==========================================");
-				System.out.println("	             결제 승인 되었습니다.");
-				System.out.println("==========================================");
-				adminCD.addPurchaseMap(CDKey);
-				adminCD.removeMap(CDKey, ORDER_MAP);
-				// 결산 값 증가
-				int income = adminCD.returnIncome(CDKey);
-				total += income;
-				// 재고 감소
-				adminCD.countIncrease(CDKey);
+		while(true) {
+			orderSelect();
+			System.out.print("구매 승인할 코드를 입력하세요. [이전:0] : ");
+			CDKey = scan.nextInt();
+			if(CDKey == 0) {
+				break;
 			} else {
-				System.out.println("입력하신 CD가 없습니다.");
+				if(adminCD.containsKeyMap(CDKey, ORDER_MAP)) {
+					System.out.println("==========================================");
+					System.out.println("	             결제 승인 되었습니다.");
+					System.out.println("==========================================");
+					adminCD.addPurchaseMap(CDKey);
+					adminCD.removeMap(CDKey, ORDER_MAP);
+					// 결산 값 증가
+					int income = adminCD.returnIncome(CDKey);
+					total += income;
+					// 재고 감소
+					adminCD.countIncrease(CDKey);
+				} else {
+					System.out.println("입력하신 CD가 없습니다.");
+				}
 			}
 		}
 	}
@@ -156,28 +161,30 @@ public class AdminImpl implements Admin {
 	// 2.주문관리 - 환불 처리
 	@Override
 	public void orderCancel() {
-		System.out.println("================ 환불 요청 목록 ================");
-		System.out.println(" 번호	제목	가수	가격	수량");
-		System.out.println("==========================================");
-		adminCD.showMap(REFUND_MAP);
-		System.out.print("환불 처리할 코드를 입력하세요. [이전:0] : ");
-		CDKey = scan.nextInt();
-		if(CDKey == 0) {
-			
-		} else {
-			if(adminCD.containsKeyMap(CDKey, REFUND_MAP)) {
-				System.out.println("==========================================");
-				System.out.println("	             환불 처리 되었습니다.");
-				System.out.println("==========================================");
-				// 결산 값 감소
-				int refundFee = adminCD.returnRefundFee(CDKey);
-				total -= refundFee;
-				// 재고 증가
-				adminCD.countDecrease(CDKey);
-				
-				adminCD.removeMap(CDKey, REFUND_MAP);
+		while(true) {
+			System.out.println("================ 환불 요청 목록 ================");
+			System.out.println(" 번호	제목	가수	가격	수량");
+			System.out.println("==========================================");
+			adminCD.showMap(REFUND_MAP);
+			System.out.print("환불 처리할 코드를 입력하세요. [이전:0] : ");
+			CDKey = scan.nextInt();
+			if(CDKey == 0) {
+				break;
 			} else {
-				System.out.println("입력하신 CD가 없습니다.");
+				if(adminCD.containsKeyMap(CDKey, REFUND_MAP)) {
+					System.out.println("==========================================");
+					System.out.println("	             환불 처리 되었습니다.");
+					System.out.println("==========================================");
+					// 결산 값 감소
+					int refundFee = adminCD.returnRefundFee(CDKey);
+					total -= refundFee;
+					// 재고 증가
+					adminCD.countDecrease(CDKey);
+					
+					adminCD.removeMap(CDKey, REFUND_MAP);
+				} else {
+					System.out.println("입력하신 CD가 없습니다.");
+				}
 			}
 		}
 	}

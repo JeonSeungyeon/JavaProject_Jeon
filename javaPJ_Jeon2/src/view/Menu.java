@@ -16,10 +16,6 @@ public interface Menu {
 	public void customerMenu();	
 	// 고객 메뉴 - 장바구니
 	public void customerCart();
-//	// 고객 메뉴 - 구매
-//	public void customerBuy();
-//	// 고객 메뉴 - 환불
-//	public void customerRefund();
 	
 	//관리자 메뉴
 	public void adminMenu();	

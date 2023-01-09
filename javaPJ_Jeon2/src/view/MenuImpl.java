@@ -1,10 +1,10 @@
 package view;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 import controller.Admin;
 import controller.AdminImpl;
-import controller.Customer;
 import controller.CustomerImpl;
 
 public class MenuImpl implements Menu {
@@ -14,6 +14,9 @@ public class MenuImpl implements Menu {
 	AdminImpl admin = AdminImpl.getInstance();
 	
 	Scanner scan = new Scanner(System.in);
+	
+	// 회원맵
+	HashMap<String, String> customerMap = new HashMap<String, String>();
 	
 	// =================================================================== 
 	// 멤버변수
@@ -28,17 +31,20 @@ public class MenuImpl implements Menu {
 	// 로그인 메뉴
 	@Override
 	public void login() {
-		System.out.println("────────────────── 로그인 ──────────────────");
-		System.out.println("    1.고객        2.관리자        3.회원가입        4.종료        ");
-		System.out.println("==========================================");
-		System.out.print("메뉴번호를 입력하세요: ");
-		menu = scan.nextInt();
-
-		switch(menu) {
+		while(true) {
+			System.out.println("────────────────── 로그인 ──────────────────");
+			System.out.println("    1.고객        2.관리자        3.회원가입        4.종료        ");
+			System.out.println("==========================================");
+			System.out.print("메뉴번호를 입력하세요: ");
+			menu = scan.nextInt();
+			
+			switch(menu) {
 			case 1 : customerLogin();	break;
 			case 2 : adminLogin();		break;
 			case 3 : signUp();			break;
 			case 4 : exit();			break;
+			default : System.out.println("메뉴에 있는 숫자만 입력해 주세요.");
+			}
 		}
 	}
 	
@@ -46,44 +52,45 @@ public class MenuImpl implements Menu {
 	// 고객 로그인
 	@Override
 	public void customerLogin() {
-		while(true) {
 			System.out.print("고객 ID : ");
 			id = scan.next();
-			if(id.equals(Customer.ID)) {
+			if(customerMap.containsKey(id)) {
 				System.out.print("고객 PW : ");
 				pw = scan.next();
-				if(pw.equals(Customer.PASSWORD)) {
+				if(pw.equals(customerMap.get(id))) {
+					System.out.println("==========================================");
+					System.out.println("		  로그인 되었습니다.");
+					System.out.println("==========================================");
 					customerMenu();
-					break;
+
 				} else {
 					System.out.println("비밀번호가 틀렸습니다.");
 				}
 			} else {
-				System.out.println("아이디가 틀렸습니다.");
+				System.out.println("아이디가 존재하지 않습니다.");
 			}
-		}
 	}
 	
 	// -------------------------------------------------------------------
 	// 관리자 로그인
 	@Override
 	public void adminLogin() {
-		while(true) {
 			System.out.print("관리자 ID : ");
 			id = scan.next();
 			if(id.equals(Admin.ID)) {
 				System.out.print("관리자 PW : ");
 				pw = scan.next();
 				if(pw.equals(Admin.PASSWORD)) {
+					System.out.println("==========================================");
+					System.out.println("		  로그인 되었습니다.");
+					System.out.println("==========================================");
 					adminMenu();
-					break;
 				} else {
 					System.out.println("비밀번호가 틀렸습니다.");
 				}
 			} else {
 				System.out.println("아이디가 틀렸습니다.");
 			}
-		}
 	}
 	
 	// =================================================================== 
@@ -91,7 +98,6 @@ public class MenuImpl implements Menu {
 
 	@Override
 	public void signUp() {
-		// DB같은 HashMap에 넣어야 하는지 모르겠음
 		System.out.println("==========================================");
 		System.out.println("		     회원가입");
 		System.out.println("==========================================");
@@ -102,7 +108,9 @@ public class MenuImpl implements Menu {
 		System.out.println("==========================================");
 		System.out.println("		  회원가입 완료");
 		System.out.println("==========================================");
+		customerMap.put(id, pw);
 		login();
+		
 	}
 
 	// =================================================================== 
@@ -128,6 +136,7 @@ public class MenuImpl implements Menu {
 				case 2 : customer.nowBuy();	break;
 				case 3 : customer.refund();	break;
 				case 4 : LogOut();			break;
+				default : System.out.println("메뉴에 있는 숫자만 입력해 주세요.");
 			}		
 		}
 	}
@@ -145,6 +154,7 @@ public class MenuImpl implements Menu {
 			case 2 : customer.cartRemove();	break;
 			case 3 : customer.cartBuy();	break;
 			case 4 : customerMenu();		break;
+			default : System.out.println("메뉴에 있는 숫자만 입력해 주세요.");
 			}
 		}
 		
@@ -164,6 +174,7 @@ public class MenuImpl implements Menu {
 				case 1 : inventoryMenu();	break;
 				case 2 : orderMenu();		break;
 				case 3 : LogOut();			break;
+				default : System.out.println("메뉴에 있는 숫자만 입력해 주세요.");
 			}
 		}
 	}
@@ -181,6 +192,7 @@ public class MenuImpl implements Menu {
 				case 3 : admin.productUpdate();	break;
 				case 4 : admin.productRemove();	break;
 				case 5 : adminMenu();
+				default : System.out.println("메뉴에 있는 숫자만 입력해 주세요.");
 			}
 		}
 	}
@@ -199,6 +211,7 @@ public class MenuImpl implements Menu {
 				case 3 : admin.orderCancel();	break;
 				case 4 : admin.saleTotal();		break;
 				case 5 : adminMenu();
+				default : System.out.println("메뉴에 있는 숫자만 입력해 주세요.");
 			}
 		}
 	}

@@ -9,9 +9,6 @@ public interface Customer {
 	static final int PURCHASE_MAP = 4;	
 	static final int REFUND_MAP = 5;
 	
-	public static final String ID = "customer";
-	public static final String PASSWORD = "customer";
-	
 	// 고객 - 장바구니
 	public void cartList();		// 장바구니 목록
 	public void cartAdd();		// 장바구니 추가
