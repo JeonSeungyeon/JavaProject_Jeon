@@ -54,9 +54,9 @@ public class AdminImpl implements Admin {
 		System.out.print("가수 이름 : ");
 		singer = scan.next();
 		System.out.print("CD 가격 : ");
-		price = scan.nextInt();
+		price = Exceptions.readInt();
 		System.out.print("CD 수량 : ");
-		count = scan.nextInt();
+		count = Exceptions.readInt();
 		System.out.println("==========================================");
 		System.out.println("	            상품이 등록되었습니다.");
 		System.out.println("==========================================");
@@ -71,7 +71,7 @@ public class AdminImpl implements Admin {
 		while(true) {
 			productList();
 			System.out.print("수정하려는 CD의 코드를 입력하세요. [이전:0] : ");
-			CDKey = scan.nextInt();
+			CDKey = Exceptions.readInt();
 			if(CDKey == 0) {
 				break;
 			} else {
@@ -82,9 +82,9 @@ public class AdminImpl implements Admin {
 					System.out.print("가수 이름 : ");
 					singer = scan.next();
 					System.out.print("CD 가격 : ");
-					price = scan.nextInt();
+					price = Exceptions.readInt();
 					System.out.print("CD 수량 : ");
-					count = scan.nextInt();
+					count = Exceptions.readInt();
 					System.out.println("==========================================");
 					CD update =  new CD(title, singer, price, count);
 					adminCD.addMap(CDKey, update);
@@ -100,7 +100,7 @@ public class AdminImpl implements Admin {
 		while(true) {
 			productList();
 			System.out.print("삭제하려는 CD의 코드를 입력하세요. [이전:0] : ");
-			CDKey = scan.nextInt();
+			CDKey = Exceptions.readInt();
 			if(CDKey == 0) {
 				break;
 			} else {
@@ -135,7 +135,7 @@ public class AdminImpl implements Admin {
 		while(true) {
 			orderSelect();
 			System.out.print("구매 승인할 코드를 입력하세요. [이전:0] : ");
-			CDKey = scan.nextInt();
+			CDKey = Exceptions.readInt();
 			if(CDKey == 0) {
 				break;
 			} else {
@@ -167,7 +167,7 @@ public class AdminImpl implements Admin {
 			System.out.println("==========================================");
 			adminCD.showMap(REFUND_MAP);
 			System.out.print("환불 처리할 코드를 입력하세요. [이전:0] : ");
-			CDKey = scan.nextInt();
+			CDKey = Exceptions.readInt();
 			if(CDKey == 0) {
 				break;
 			} else {
