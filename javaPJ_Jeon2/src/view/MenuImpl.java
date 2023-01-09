@@ -37,7 +37,6 @@ public class MenuImpl implements Menu {
 			System.out.println("==========================================");
 			System.out.print("메뉴번호를 입력하세요: ");
 			menu = scan.nextInt();
-			
 			switch(menu) {
 			case 1 : customerLogin();	break;
 			case 2 : adminLogin();		break;
@@ -197,7 +196,6 @@ public class MenuImpl implements Menu {
 		}
 	}
 
-
 	@Override
 	public void orderMenu() {
 		while(true) {
@@ -215,7 +213,6 @@ public class MenuImpl implements Menu {
 			}
 		}
 	}
-
 
 	// ===================================================================
 	// 로그아웃
