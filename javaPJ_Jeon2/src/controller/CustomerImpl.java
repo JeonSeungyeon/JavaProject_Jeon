@@ -1,18 +1,18 @@
 package controller;
 
 import java.util.Scanner;
-import model.LP;
+import model.CD;
 
 public class CustomerImpl implements Customer {
 	
 	AdminImpl admin = AdminImpl.getInstance();
-	LP customerLp = LP.getInstance();
+	CD customerCD = CD.getInstance();
 	
 	Scanner scan = new Scanner(System.in);
 	
 	// =================================================================== 
 	// 멤버변수
-	private int LPKey;
+	private int CDKey;
 	int cartCount;
 	
 	// 고객 맵
@@ -39,8 +39,8 @@ public class CustomerImpl implements Customer {
 	@Override
 	public void cartList() {
 		System.out.println("================ 장바구니 목록 ================");
-		System.out.println(" 번호	제목	밴드	가격	수량");
-		customerLp.entryMap(2);
+		System.out.println(" 번호	제목	가수	가격	수량");
+		customerCD.showMap(CART_MAP);
 		System.out.println("==========================================");
 	}
 
@@ -48,21 +48,21 @@ public class CustomerImpl implements Customer {
 	public void cartAdd() {
 		do {
 			admin.productList();
-			System.out.print("장바구니에 담을 책의 코드를 입력하세요. [이전:0] : ");
-			LPKey = scan.nextInt();
+			System.out.print("장바구니에 담을 CD의 코드를 입력하세요. [이전:0] : ");
+			CDKey = scan.nextInt();
 			
-			if(LPKey == 0) {
+			if(CDKey == 0) {
 				break;
 			} else {
-				if(customerLp.containsKeyMap(LPKey, 1)) {
+				if(customerCD.containsKeyMap(CDKey, CD_MAP)) {
 					System.out.print("수량을 입력하세요 : ");
 					cartCount = scan.nextInt();
 					System.out.println("==========================================");
 					System.out.println("	             장바구니에 담겼습니다.");
 					System.out.println("==========================================");
-					customerLp.addCartMap(LPKey, cartCount);
+					customerCD.addCartMap(CDKey, cartCount);
 				} else {
-					System.out.println("입력하신 LP가 없습니다.");
+					System.out.println("입력하신 CD가 없습니다.");
 				}
 			}
 		} while(true);
@@ -71,18 +71,18 @@ public class CustomerImpl implements Customer {
 	@Override
 	public void cartRemove() {
 		cartList();
-		System.out.print("삭제하려는 LP의 코드를 입력하세요. [이전:0] : ");
-		LPKey = scan.nextInt();
-		if(LPKey == 0) {
+		System.out.print("삭제하려는 CD의 코드를 입력하세요. [이전:0] : ");
+		CDKey = scan.nextInt();
+		if(CDKey == 0) {
 			
 		} else {
-			if(customerLp.containsKeyMap(LPKey, 1)) {
-				System.out.println("================= LP 삭제 ==================");
+			if(customerCD.containsKeyMap(CDKey, CART_MAP)) {
+				System.out.println("================= CD 삭제 ==================");
 				System.out.println("	           목록에서 삭제 되었습니다.");
 				System.out.println("==========================================");
-				customerLp.removeMap(LPKey, 2);
+				customerCD.removeMap(CDKey, CART_MAP);
 			} else {
-				System.out.println("입력하신 LP가 없습니다.");
+				System.out.println("입력하신 CD가 없습니다.");
 			}
 		}
 	}
@@ -90,19 +90,19 @@ public class CustomerImpl implements Customer {
 	@Override
 	public void cartBuy() {
 		cartList();
-		System.out.print("구매할 LP의 코드를 입력하세요. [이전:0] : ");
-		LPKey = scan.nextInt();
-		if(LPKey == 0) {
+		System.out.print("구매할 CD의 코드를 입력하세요. [이전:0] : ");
+		CDKey = scan.nextInt();
+		if(CDKey == 0) {
 
 		} else {
-			if(customerLp.containsKeyMap(LPKey, 1)) {
+			if(customerCD.containsKeyMap(CDKey, CART_MAP)) {
 				System.out.println("==========================================");
 				System.out.println("	             구매 요청 되었습니다.");
 				System.out.println("==========================================");
-				customerLp.addOrderMap(LPKey);
-				customerLp.removeMap(LPKey, 2);
+				customerCD.addOrderMap(CDKey);
+				customerCD.removeMap(CDKey, CART_MAP);
 			} else {
-				System.out.println("입력하신 LP가 없습니다.");
+				System.out.println("입력하신 CD가 없습니다.");
 			}
 		}
 	}
@@ -113,21 +113,20 @@ public class CustomerImpl implements Customer {
 	@Override
 	public void nowBuy() {
 		admin.productList();
-		System.out.print("구매할 LP의 코드를 입력하세요. [이전:0] : ");
-		LPKey = scan.nextInt();
-		if(LPKey == 0) {
+		System.out.print("구매할 CD의 코드를 입력하세요. [이전:0] : ");
+		CDKey = scan.nextInt();
+		if(CDKey == 0) {
 
 		} else {
 			System.out.print("수량을 입력하세요 : ");
 			cartCount = scan.nextInt();
-			if(customerLp.containsKeyMap(LPKey, 1)) {
+			if(customerCD.containsKeyMap(CDKey, CD_MAP)) {
 				System.out.println("==========================================");
 				System.out.println("	             구매 요청 되었습니다.");
 				System.out.println("==========================================");
-				customerLp.buyNow(LPKey, cartCount);
-				customerLp.removeMap(LPKey, 2);
+				customerCD.buyNow(CDKey, cartCount);
 			} else {
-				System.out.println("입력하신 LP가 없습니다.");
+				System.out.println("입력하신 CD가 없습니다.");
 			}
 		}
 	}
@@ -137,22 +136,22 @@ public class CustomerImpl implements Customer {
 	@Override
 	public void refund() {
 		System.out.println("================ 구매 완료 목록 ================");
-		System.out.println(" 번호	제목	밴드	가격	수량");
-		customerLp.entryMap(4);
+		System.out.println(" 번호	제목	가수	가격	수량");
+		customerCD.showMap(PURCHASE_MAP);
 		System.out.println("==========================================");
-		System.out.print("환불 요청할 책의 코드를 입력하세요. [이전:0] : ");
-		LPKey = scan.nextInt();
-		if(LPKey == 0) {
+		System.out.print("환불 요청할 CD의 코드를 입력하세요. [이전:0] : ");
+		CDKey = scan.nextInt();
+		if(CDKey == 0) {
 			
 		} else {
-			if(customerLp.containsKeyMap(LPKey, 4)) {
+			if(customerCD.containsKeyMap(CDKey, PURCHASE_MAP)) {
 				System.out.println("==========================================");
 				System.out.println("	             환불 요청 되었습니다.");
 				System.out.println("==========================================");
-				customerLp.addRefundMap(LPKey);
-				customerLp.removeMap(LPKey, 3);
+				customerCD.addRefundMap(CDKey);
+				customerCD.removeMap(CDKey, PURCHASE_MAP);
 			} else {
-				System.out.println("입력하신 LP가 없습니다.");
+				System.out.println("입력하신 CD가 없습니다.");
 			}
 			
 		}

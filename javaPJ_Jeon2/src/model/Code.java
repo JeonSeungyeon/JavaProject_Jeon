@@ -1,7 +1,7 @@
 package model;
 
 public interface Code {
-
+	
    // 상수
    static final int SHOP_LOGIN = 999; // 로그인
    

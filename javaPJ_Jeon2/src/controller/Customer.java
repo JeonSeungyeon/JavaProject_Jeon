@@ -2,6 +2,11 @@ package controller;
 
 public interface Customer {
 	
+	// CD 클래스 switchMap
+	static final int CD_MAP = 1;
+	static final int CART_MAP = 2;
+	static final int PURCHASE_MAP = 4;	
+	
 	public static final String ID = "customer";
 	public static final String PASSWORD = "customer";
 	

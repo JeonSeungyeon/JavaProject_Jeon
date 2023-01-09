@@ -2,6 +2,11 @@ package controller;
 
 public interface Admin {
 	
+	// CD 클래스 switchMap
+	static final int CD_MAP = 1;
+	static final int ORDER_MAP = 3;	
+	static final int REFUND_MAP = 5;
+	
 	public static final String ID = "admin";
 	public static final String PASSWORD = "admin";
 	

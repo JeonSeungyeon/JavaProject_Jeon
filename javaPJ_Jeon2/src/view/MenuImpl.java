@@ -44,6 +44,7 @@ public class MenuImpl implements Menu {
 		}
 	}
 	
+	// -------------------------------------------------------------------
 	// 고객 로그인
 	@Override
 	public void customerLogin() {
@@ -64,7 +65,8 @@ public class MenuImpl implements Menu {
 			}
 		}
 	}
-
+	
+	// -------------------------------------------------------------------
 	// 관리자 로그인
 	@Override
 	public void adminLogin() {
@@ -91,7 +93,6 @@ public class MenuImpl implements Menu {
 
 	@Override
 	public void signUp() {
-		// 예외처리
 		// DB같은 HashMap에 넣어야 하는지 모르겠음
 		System.out.println("==========================================");
 		System.out.println("		     회원가입");
@@ -191,7 +192,7 @@ public class MenuImpl implements Menu {
 	public void orderMenu() {
 		while(true) {
 			System.out.println("───────────────── 주문관리  ─────────────────");
-			System.out.println("  1.주문목록   2.결제승인   3.결제취소    4.결산    5.이전");
+			System.out.println("  1.주문목록   2.결제승인   3.환불처리    4.결산    5.이전");
 			System.out.println("==========================================");	
 			menu = scan.nextInt();
 			switch(menu) {
