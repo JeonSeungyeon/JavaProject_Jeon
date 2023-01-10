@@ -52,11 +52,7 @@ public class ExceptionHandler {
 // -------------------------------------------------------------------
 // 음수 예외 클래스
 class NegativeException extends Exception {
-
 	public NegativeException() {}
-	public NegativeException(String message) {
-		super(message);
-	}
 }
 
 // -------------------------------------------------------------------

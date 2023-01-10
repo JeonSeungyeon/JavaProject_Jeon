@@ -43,11 +43,10 @@ public class CustomerImpl implements Customer {
 
 	@Override
 	public void cartAdd() {
-		do {
+		while(true) {
 			admin.productList();
 			System.out.print("장바구니에 담을 CD의 코드를 입력하세요. [이전:0] : ");
 			CDKey = ExceptionHandler.readInt();
-			
 			if(CDKey == 0) {
 				break;
 			} else {
@@ -67,7 +66,7 @@ public class CustomerImpl implements Customer {
 					System.out.println("입력하신 CD가 없습니다.");
 				}
 			}
-		} while(true);
+		} 
 	}
 
 	@Override
