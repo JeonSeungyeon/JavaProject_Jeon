@@ -46,14 +46,14 @@ public class CustomerImpl implements Customer {
 		do {
 			admin.productList();
 			System.out.print("장바구니에 담을 CD의 코드를 입력하세요. [이전:0] : ");
-			CDKey = Exceptions.readInt();
+			CDKey = ExceptionHandler.readInt();
 			
 			if(CDKey == 0) {
 				break;
 			} else {
 				if(customerCD.containsKeyMap(CDKey, CD_MAP)) {
 					System.out.print("수량을 입력하세요 : ");
-					count = Exceptions.readInt();
+					count = ExceptionHandler.readInt();
 					// 입력한 수량이 재고보다 많을 때
 					if(count <= customerCD.returnCount(CDKey)) {
 						System.out.println("==========================================");
@@ -75,7 +75,7 @@ public class CustomerImpl implements Customer {
 		while(true) {
 			cartList();
 			System.out.print("삭제하려는 CD의 코드를 입력하세요. [이전:0] : ");
-			CDKey = Exceptions.readInt();
+			CDKey = ExceptionHandler.readInt();
 			if(CDKey == 0) {
 				break;
 			} else {
@@ -96,7 +96,7 @@ public class CustomerImpl implements Customer {
 		while(true) {
 			cartList();
 			System.out.print("구매할 CD의 코드를 입력하세요. [이전:0] : ");
-			CDKey = Exceptions.readInt();
+			CDKey = ExceptionHandler.readInt();
 			if(CDKey == 0) {
 				break;
 			} else {
@@ -121,12 +121,12 @@ public class CustomerImpl implements Customer {
 		while(true) {
 			admin.productList();
 			System.out.print("구매할 CD의 코드를 입력하세요. [이전:0] : ");
-			CDKey = Exceptions.readInt();
+			CDKey = ExceptionHandler.readInt();
 			if(CDKey == 0) {
 				break;
 			} else {
 				System.out.print("수량을 입력하세요 : ");
-				count = Exceptions.readInt();
+				count = ExceptionHandler.readInt();
 				if(customerCD.containsKeyMap(CDKey, CD_MAP)) {
 					if(count <= customerCD.returnCount(CDKey)) {
 						System.out.println("==========================================");
@@ -153,7 +153,7 @@ public class CustomerImpl implements Customer {
 			customerCD.showMap(PURCHASE_MAP);
 			System.out.println("==========================================");
 			System.out.print("환불 요청할 CD의 코드를 입력하세요. [이전:0] : ");
-			CDKey = Exceptions.readInt();
+			CDKey = ExceptionHandler.readInt();
 			if(CDKey == 0) {
 				break;
 			} else {
