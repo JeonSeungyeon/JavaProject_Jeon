@@ -62,8 +62,7 @@ public class AdminImpl implements Admin {
 		System.out.println("==========================================");
 		CD newCD =  new CD(title, singer, price, count);
 		int randomNumber = (int) (Math.random() * 1000 + 1000);
-		// randomNumber이 기존 코드와 같을 경우 처리하기		
-		adminCD.addMap(randomNumber, newCD);
+		adminCD.addCDMap(randomNumber, newCD);
 	}
 
 	@Override
@@ -86,8 +85,10 @@ public class AdminImpl implements Admin {
 					System.out.print("CD 수량 : ");
 					count = ExceptionHandler.readInt();
 					System.out.println("==========================================");
+					System.out.println("	            상품이 수정되었습니다.");
+					System.out.println("==========================================");
 					CD update =  new CD(title, singer, price, count);
-					adminCD.addMap(CDKey, update);
+					adminCD.addCDMap(CDKey, update);
 				} else {
 					System.out.println("입력하신 CD가 없습니다.");
 				}

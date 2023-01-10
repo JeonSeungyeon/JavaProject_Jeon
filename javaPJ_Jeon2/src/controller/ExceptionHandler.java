@@ -24,7 +24,7 @@ public class ExceptionHandler {
 	    } catch (NegativeException e) {
 			System.out.print("양수만 입력해 주세요 : ");
 			return readInt();
-		} 
+		}
 	    return num;
 	}
 	

@@ -51,7 +51,7 @@ public class CD {
 	// 값 추가 메서드 모음
 	
 	// CDMap에 값 추가하는 메서드
-	public void addMap(int CDKey, CD value) {
+	public void addCDMap(int CDKey, CD value) {
 		CDMap.put(CDKey, value);
 	}
 

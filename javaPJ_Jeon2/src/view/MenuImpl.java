@@ -59,7 +59,7 @@ public class MenuImpl implements Menu {
 				pw = ExceptionHandler.readString();
 				if(pw.equals(customerMap.get(id))) {
 					System.out.println("==========================================");
-					System.out.println("		  로그인 되었습니다.");
+					System.out.println("	                로그인 되었습니다.");
 					System.out.println("==========================================");
 					customerMenu();
 
@@ -82,7 +82,7 @@ public class MenuImpl implements Menu {
 				pw = ExceptionHandler.readString();
 				if(pw.equals(Admin.PASSWORD)) {
 					System.out.println("==========================================");
-					System.out.println("		  로그인 되었습니다.");
+					System.out.println("	                로그인 되었습니다.");
 					System.out.println("==========================================");
 					adminMenu();
 				} else {
