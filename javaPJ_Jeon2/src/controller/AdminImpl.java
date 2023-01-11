@@ -150,7 +150,7 @@ public class AdminImpl implements Admin {
 					int income = adminCD.returnIncome(CDKey);
 					total += income;
 					// 재고 감소
-					adminCD.countIncrease(CDKey);
+					adminCD.countDecrease(CDKey);
 				} else {
 					System.out.println("입력하신 CD가 없습니다.");
 				}
@@ -180,7 +180,7 @@ public class AdminImpl implements Admin {
 					int refundFee = adminCD.returnRefundFee(CDKey);
 					total -= refundFee;
 					// 재고 증가
-					adminCD.countDecrease(CDKey);
+					adminCD.countIncrease(CDKey);
 					
 					adminCD.removeMap(CDKey, REFUND_MAP);
 				} else {

@@ -143,7 +143,7 @@ public class CD {
 		case 1 : copyMap = CDMap; pasteMap = cartMap;	break;
 		case 3 : copyMap = CDMap; pasteMap = orderMap;	break;
 	}
-		CD copyValue = copyMap.get(CDKey);	// 여기 코드 줄이기
+		CD copyValue = copyMap.get(CDKey);
 		CD pasteValue = pasteMap.get(CDKey);
 		CD sumValue = new CD(pasteValue.title, pasteValue.singer, 
 				pasteValue.price + copyValue.price * cartCount, pasteValue.count + cartCount);
@@ -167,7 +167,7 @@ public class CD {
 	}
 	// -------------------------------------------------------------------
 	   // 재고 감소
-	   public void countIncrease(int CDKey) {
+	   public void countDecrease(int CDKey) {
 	      CD CDMapValue = CDMap.get(CDKey);         		// CDMap 값 복사
 	      CD purchaseMapValue = purchaseMap.get(CDKey);   	// purchaseMap 값 복사
 	      CD value = new CD(CDMapValue.title, CDMapValue.singer, 
@@ -177,7 +177,7 @@ public class CD {
 	   }
 	   
 	   // 재고 증가
-	   public void countDecrease(int CDKey) {
+	   public void countIncrease(int CDKey) {
 	      CD CDMapValue = CDMap.get(CDKey);
 	      CD purchaseMapValue = refundMap.get(CDKey);
 	      CD value = new CD(CDMapValue.title, CDMapValue.singer, 
