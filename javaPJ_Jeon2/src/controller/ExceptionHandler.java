@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class ExceptionHandler {
 	
-	// ===================================================================
+	 // ===================================================================
 	
 	// -------------------------------------------------------------------
 	
@@ -51,11 +51,9 @@ public class ExceptionHandler {
 // -------------------------------------------------------------------
 // 음수 예외 클래스
 class NegativeException extends Exception {
-	public NegativeException() {}
 }
 
 // -------------------------------------------------------------------
 // 빈 문자열 예외 클래스
 class EmptyValueException extends Exception	{
-	public EmptyValueException() {}
 }

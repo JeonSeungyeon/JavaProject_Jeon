@@ -1,7 +1,6 @@
 package view;
 
 import java.util.HashMap;
-import java.util.Scanner;
 
 import controller.Admin;
 import controller.AdminImpl;
@@ -14,7 +13,6 @@ public class MenuImpl implements Menu {
 	CustomerImpl customer = CustomerImpl.getInstance();
 	AdminImpl admin = AdminImpl.getInstance();
 	
-	Scanner scan = new Scanner(System.in);
 	
 	// 회원맵
 	HashMap<String, String> customerMap = new HashMap<String, String>();

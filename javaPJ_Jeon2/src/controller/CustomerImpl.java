@@ -13,7 +13,7 @@ public class CustomerImpl implements Customer {
 	// =================================================================== 
 	// 멤버변수
 	private int CDKey;
-	int count;
+	private int count;
 
 	// =================================================================== 
 	// 싱글톤
