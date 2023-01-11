@@ -124,9 +124,9 @@ public class CustomerImpl implements Customer {
 			if(CDKey == 0) {
 				break;
 			} else {
-				System.out.print("수량을 입력하세요 : ");
-				count = ExceptionHandler.readInt();
 				if(customerCD.containsKeyMap(CDKey, CD_MAP)) {
+					System.out.print("수량을 입력하세요 : ");
+					count = ExceptionHandler.readInt();
 					if(count <= customerCD.returnCount(CDKey)) {
 						System.out.println("==========================================");
 						System.out.println("	             구매 요청 되었습니다.");

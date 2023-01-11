@@ -8,24 +8,24 @@ public class ExceptionHandler {
 	// ===================================================================
 	
 	// -------------------------------------------------------------------
+	
 	// 스캐너를 정수를 입력받을 때의 예외처리
 	public static int readInt() {
-	    Scanner scan = new Scanner(System.in);
-	    int num = 0;
-	    try {
-	        num = scan.nextInt();
-	        if(num < 0) {
-	        	NegativeException e = new NegativeException();
-	        	throw new NegativeException();
-	        }
-	    } catch (InputMismatchException e) {
-	        System.out.print("숫자만 입력해 주세요 : ");
-	        return readInt();
-	    } catch (NegativeException e) {
+		Scanner scan = new Scanner(System.in);
+		int num = 0;
+		try {
+			num = scan.nextInt();
+			if(num < 0) {
+				throw new NegativeException();
+			}
+		} catch (InputMismatchException e) {
+			System.out.print("숫자만 입력해 주세요 : ");
+			return readInt();
+		} catch (NegativeException e) {
 			System.out.print("양수만 입력해 주세요 : ");
 			return readInt();
 		}
-	    return num;
+		return num;
 	}
 	
 	// -------------------------------------------------------------------
@@ -36,7 +36,6 @@ public class ExceptionHandler {
 	    try {
 	    	str = scan.nextLine();
 	    	if(str.length() == 0) {
-	    		EmptyValueException e = new EmptyValueException();
 	    		throw new EmptyValueException();
 	    	}
 	    } catch(EmptyValueException e) {

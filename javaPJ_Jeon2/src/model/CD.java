@@ -57,51 +57,71 @@ public class CD {
 
 	// cartMap에 값 추가하는 메서드
 	public void addCartMap(int CDKey, int cartCount) {		
-		calMap(CDKey, cartCount, 1);	// 기존값을 복사하고 계산하는 메서드를 호출한다.		
+		if(cartMap.containsKey(CDKey)) {
+			mulValue(CDKey, cartCount, 1);
+		} else {
+			calMap(CDKey, cartCount, 1);	// 기존값을 복사하고 계산하는 메서드를 호출한다.		
+		}
 	}
 	
 	// orderMap에 값 추가하는 메서드(장바구니)
 	public void addOrderMap(int CDKey) {
-		copyMap(CDKey, 3);	// 기존값을 복사하는 메서드를 호출한다
+		if(orderMap.containsKey(CDKey)) {
+			sumValue(CDKey, 3);
+		} else {
+			copyMap(CDKey, 3);	// 기존값을 복사하는 메서드를 호출한다
+		}
 	}
 	
 	// orderMap에 값 추가하는 메서드(바로구매)
-	public void buyNow(int CDKey, int orderCount) {		
-		calMap(CDKey, orderCount, 3);	
+	public void buyNow(int CDKey, int orderCount) {
+		if(orderMap.containsKey(CDKey)) {
+			mulValue(CDKey, orderCount, 3);
+		} else {
+			calMap(CDKey, orderCount, 3);	
+		}
 	}
 	
 	// purchaseMap에 값 추가하는 메서드
 	public void addPurchaseMap(int CDKey) {
-		copyMap(CDKey, 4);
+		if(purchaseMap.containsKey(CDKey)) {
+			sumValue(CDKey, 4);
+		} else {
+			copyMap(CDKey, 4);
+		}
 	}
 	
 	// refundMap에 값 추가하는 메서드
 	public void addRefundMap(int CDKey) {
-		copyMap(CDKey, 5);
+		if(refundMap.containsKey(CDKey)) {
+			sumValue(CDKey, 5);
+		} else {
+			copyMap(CDKey, 5);
+		}
 	}
 	
 	// -------------------------------------------------------------------
 	// 기존 값을 복사하는 메서드
 	public void copyMap(int CDKey, int switchMap) {
     	HashMap<Integer, CD> copyMap = null;	// 복사할 Map을 저장할 Map
-    	HashMap<Integer, CD> PasteMap = null;	// 붙여넣을 Map을 저장할 Map
+    	HashMap<Integer, CD> pasteMap = null;	// 붙여넣을 Map을 저장할 Map
     	switch(switchMap) {
     		// switch case를 이용해서 switchMap에 따라 복사할 맵과 붙여넣을 맵을 다르게 한다
-    		case 3 : copyMap = cartMap; PasteMap = orderMap;		break;	 
-    		case 4 : copyMap = orderMap; PasteMap = purchaseMap;	break;	
-    		case 5 : copyMap = purchaseMap; PasteMap = refundMap;	break;	
+    		case 3 : copyMap = cartMap; pasteMap = orderMap;		break;	 
+    		case 4 : copyMap = orderMap; pasteMap = purchaseMap;	break;	
+    		case 5 : copyMap = purchaseMap; pasteMap = refundMap;	break;	
     	}
 		CD value = copyMap.get(CDKey);	// CDKey에 해당하는 value값에 복사할 맵의 value값을 복사한다.
-		PasteMap.put(CDKey, value);		// CDKey를 key 값으로 위에서 복사한 value값을 value값으로 put한다.
+		pasteMap.put(CDKey, value);		// CDKey를 key 값으로 위에서 복사한 value값을 value값으로 put한다.
 	}
 	
 	// 복사한 값을 계산하는 메서드
 	public void calMap (int CDKey, int count, int switchMap) {
     	HashMap<Integer, CD> copyMap = null;
-    	HashMap<Integer, CD> PasteMap = null;
+    	HashMap<Integer, CD> pasteMap = null;
     	switch(switchMap) {
-    		case 1 : copyMap = CDMap; PasteMap = cartMap;	break;
-    		case 3 : copyMap = CDMap; PasteMap = orderMap;	break;
+    		case 1 : copyMap = CDMap; pasteMap = cartMap;	break;
+    		case 3 : copyMap = CDMap; pasteMap = orderMap;	break;
     	}
 		CD value = copyMap.get(CDKey);	// CDKey에 해당하는 value값에 복사할 맵의 value값을 복사한다.
 		CD calValue = new CD(value.title, value.singer, 
@@ -110,9 +130,41 @@ public class CD {
 		// title, singer는 복사한 값을 그대로 사용한다
 		// count 값은 메서드를 호출할 때 받은 count를 사용하고 price는 받은 count값과 곱한다 
 		
-		PasteMap.put(CDKey, calValue);	// CDKey를 key 값으로 새로운 클래스를 value값으로 put한다.
+		pasteMap.put(CDKey, calValue);	// CDKey를 key 값으로 새로운 클래스를 value값으로 put한다.
 	}
 	
+	// -------------------------------------------------------------------
+	// 이미 있는 책 코드를 추가할 때
+	// 곱해서 더하는 거
+	public void mulValue(int CDKey, int cartCount, int switchMap) {
+    	HashMap<Integer, CD> copyMap = null;
+    	HashMap<Integer, CD> pasteMap = null;
+    	switch(switchMap) {
+		case 1 : copyMap = CDMap; pasteMap = cartMap;	break;
+		case 3 : copyMap = CDMap; pasteMap = orderMap;	break;
+	}
+		CD copyValue = copyMap.get(CDKey);	// 여기 코드 줄이기
+		CD pasteValue = pasteMap.get(CDKey);
+		CD sumValue = new CD(pasteValue.title, pasteValue.singer, 
+				pasteValue.price + copyValue.price * cartCount, pasteValue.count + cartCount);
+		pasteMap.put(CDKey, sumValue);
+	}
+	
+	// 그냥 더하는 거
+	public void sumValue(int CDKey, int switchMap) {
+    	HashMap<Integer, CD> copyMap = null;
+    	HashMap<Integer, CD> pasteMap = null;
+    	switch(switchMap) {
+    		case 3 : copyMap = cartMap; pasteMap = orderMap;		break;	 
+    		case 4 : copyMap = orderMap; pasteMap = purchaseMap;	break;	
+    		case 5 : copyMap = purchaseMap; pasteMap = refundMap;	break;	
+    	}
+		CD cartValue = copyMap.get(CDKey);
+		CD orderValue = pasteMap.get(CDKey);
+		CD sumValue = new CD(orderValue.title, orderValue.singer, 
+				orderValue.price + cartValue.price, orderValue.count + cartValue.count);
+		pasteMap.put(CDKey, sumValue);
+	}
 	// -------------------------------------------------------------------
 	   // 재고 감소
 	   public void countIncrease(int CDKey) {
