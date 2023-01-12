@@ -147,7 +147,11 @@ public class CD {
 		CD pasteValue = pasteMap.get(CDKey);
 		CD sumValue = new CD(pasteValue.title, pasteValue.singer, 
 				pasteValue.price + copyValue.price * cartCount, pasteValue.count + cartCount);
-		pasteMap.put(CDKey, sumValue);
+		if((pasteValue.count + cartCount) > copyValue.count	) {
+			System.out.println("수량이 초과되었습니다.");
+		} else {
+			pasteMap.put(CDKey, sumValue);
+		}
 	}
 	
 	// 그냥 더하는 거
@@ -159,11 +163,15 @@ public class CD {
     		case 4 : copyMap = orderMap; pasteMap = purchaseMap;	break;	
     		case 5 : copyMap = purchaseMap; pasteMap = refundMap;	break;	
     	}
-		CD cartValue = copyMap.get(CDKey);
-		CD orderValue = pasteMap.get(CDKey);
-		CD sumValue = new CD(orderValue.title, orderValue.singer, 
-				orderValue.price + cartValue.price, orderValue.count + cartValue.count);
-		pasteMap.put(CDKey, sumValue);
+		CD copyValue = copyMap.get(CDKey);
+		CD pasteValue = pasteMap.get(CDKey);
+		CD sumValue = new CD(copyValue.title, copyValue.singer, 
+				copyValue.price + pasteValue.price, copyValue.count + pasteValue.count);
+		if((copyValue.count + pasteValue.count > copyValue.count)) {
+			System.out.println("수량이 초과되었습니다.");
+		} else {
+			pasteMap.put(CDKey, sumValue);
+		}
 	}
 	// -------------------------------------------------------------------
 	   // 재고 감소
